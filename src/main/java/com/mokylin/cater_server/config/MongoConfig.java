@@ -1,14 +1,23 @@
 package com.mokylin.cater_server.config;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 @EnableMongoRepositories(basePackages = {"com.mokylin.cater_server"})
 public class MongoConfig extends AbstractMongoConfiguration {
+
     @Value("${mongo.servers}")
     private String serversStr;
     @Value("${mongo.username}")
@@ -37,7 +46,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "cater-server";
+        return "cater_server";
     }
 
 }

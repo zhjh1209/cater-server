@@ -2,7 +2,9 @@ package com.mokylin.cater_server.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mokylin.cater_server.dao.SessionInfoRepository;
+import com.mokylin.cater_server.dao.UserDataRepository;
 import com.mokylin.cater_server.entity.SessionInfo;
+import com.mokylin.cater_server.entity.UserData;
 import com.mokylin.cater_server.entity.UserInfo;
 import com.mokylin.cater_server.util.AES;
 import com.mokylin.cater_server.web.result.ResultUserInfo;
@@ -38,6 +40,8 @@ public class WxLoginService {
 
     @Autowired
     private SessionInfoRepository sessionInfoRepository;
+    @Autowired
+    private UserDataRepository userDataRepository;
 
     public SessionInfo authorization(HttpServletRequest request) {
         String code = request.getHeader("x-wx-code");
@@ -77,6 +81,9 @@ public class WxLoginService {
                 sessionInfo.setCreateTime(now);
                 sessionInfo.setUuid(UUID.randomUUID().toString());
                 sessionInfoRepository.save(sessionInfo);
+                UserData userData = new UserData();
+                userData.setOpenId(openid);
+                userDataRepository.save(userData);
                 return sessionInfo;
             }
         }
@@ -106,6 +113,10 @@ public class WxLoginService {
                 sessionInfo.setCreateTime(now);
                 sessionInfo.setUuid(UUID.randomUUID().toString());
                 sessionInfoRepository.save(sessionInfo);
+                UserData userData = new UserData();
+                userData.setOpenId(openid);
+                userData.setUserInfo(userInfo);
+                userDataRepository.save(userData);
                 return sessionInfo;
             }
         } catch (Exception e) {

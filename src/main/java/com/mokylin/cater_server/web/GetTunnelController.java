@@ -21,10 +21,7 @@ public class GetTunnelController {
 
     @RequestMapping("/weapp/tunnel")
     public ResultEntity tunnel(HttpServletRequest request) {
-        SessionInfo sessionUser = (SessionInfo) request.getSession().getAttribute("user");
-        if (sessionUser == null) {
-            sessionUser = wxLoginService.validation(request);
-        }
+        SessionInfo sessionUser = wxLoginService.validation(request);
         ResultEntity result = new ResultEntity();
         if (sessionUser == null) {
             result.setCode(-1);

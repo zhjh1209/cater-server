@@ -18,17 +18,13 @@ public class LoginController {
 
     @RequestMapping("/weapp/login")
     public ResultEntity login(HttpServletRequest request) {
-        SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute("user");
-        if (sessionInfo == null) {
-            sessionInfo = wxLoginService.authorization(request);
-        }
+        SessionInfo sessionInfo = wxLoginService.authorization(request);
         ResultEntity result = new ResultEntity();
         if (sessionInfo == null) {
             result.setCode(-1);
             result.setMsg("login failed");
         } else {
             ResultUserInfo resultUserInfo = new ResultUserInfo();
-            request.getSession().setAttribute("user", sessionInfo);
             resultUserInfo.setTime((int) (System.currentTimeMillis() / 1000));
             resultUserInfo.setSkey(sessionInfo.getSkey());
             resultUserInfo.setUserinfo(sessionInfo.getUserInfo());

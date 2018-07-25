@@ -21,10 +21,7 @@ public class DecryptController {
 
     @RequestMapping(value = "/weapp/decrypt", method = RequestMethod.POST)
     public ResultEntity decrypt(HttpServletRequest request, @RequestBody DecryptEntity body) {
-        SessionInfo sessionUser = (SessionInfo) request.getSession().getAttribute("user");
-        if (sessionUser == null) {
-            sessionUser = wxLoginService.validation(request);
-        }
+        SessionInfo sessionUser = wxLoginService.validation(request);
         ResultEntity result = new ResultEntity();
         if (sessionUser == null) {
             result.setCode(-1);

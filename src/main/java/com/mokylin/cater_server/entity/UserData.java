@@ -9,6 +9,15 @@ public class UserData {
     private String openId;
     private UserInfo userInfo;
     private String kvData;
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getOpenId() {
         return openId;

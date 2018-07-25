@@ -83,6 +83,14 @@ public class WxLoginService {
                 sessionInfoRepository.save(sessionInfo);
                 UserData userData = new UserData();
                 userData.setOpenId(openid);
+                UserInfo userInfo = new UserInfo();
+                userInfo.setOpenId(openid);
+                userInfo.setNickName(openid);
+                userInfo.setLanguage("");
+                userInfo.setCity("");
+                userInfo.setProvince("");
+                userInfo.setCountry("");
+                userData.setUserInfo(userInfo);
                 userDataRepository.save(userData);
                 return sessionInfo;
             }

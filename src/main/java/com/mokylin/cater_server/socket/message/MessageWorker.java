@@ -98,7 +98,6 @@ public class MessageWorker implements Worker<User> {
     public void onDisconnect() {
         if (user != null) {
             user.onOffline();
-            worldService.removeUser(user.getId());
             user.setWorker(null);
             user = null;
         }
@@ -116,4 +115,7 @@ public class MessageWorker implements Worker<User> {
         return worldService;
     }
 
+    public void closeChannel() {
+        this.channel.close();
+    }
 }

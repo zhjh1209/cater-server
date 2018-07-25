@@ -16,6 +16,7 @@ import com.mokylin.cater_server.socket.message.SocketMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @Component
@@ -55,6 +56,7 @@ public class LoginHandler implements MsgHandler<User, MessageWorker> {
                 userData.setOpenId(sessionInfo.getOpenId());
                 userData.setScore(0);
                 userData.setUserInfo(sessionInfo.getUserInfo());
+                userData.setKvData(new HashMap<>());
                 user = new User(userData, userDataRepository, worldService);
             }
             worldService.addUser(user);

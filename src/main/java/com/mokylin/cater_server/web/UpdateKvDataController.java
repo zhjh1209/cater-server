@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,14 +43,21 @@ public class UpdateKvDataController {
             try {
                 User user = worldService.getUser(sessionUser.getOpenId());
                 if (user != null) {
-                    user.getUserData().setKvData(kvEntity.getData());
+                    Map<String, Object> kvData = user.getUserData().getKvData();
+                    if (kvEntity.getKey() != null) {
+                        kvData.put(kvEntity.getKey(), kvEntity.getData());
+                    }
                 } else {
                     Optional<UserData> userDataOpt =
                             userDataRepository.findById(sessionUser.getOpenId());
                     if (userDataOpt.isPresent()) {
                         UserData userData = userDataOpt.get();
-                        userData.setKvData(kvEntity.getData());
-                        userDataRepository.save(userData);
+                        Map<String, Object> kvData = userData.getKvData();
+                        if (kvEntity.getKey() != null) {
+                            kvData.put(kvEntity.getKey(), kvEntity.getData());
+                            userDataRepository.save(userData);
+
+                        }
                     }
                 }
                 result.setCode(0);

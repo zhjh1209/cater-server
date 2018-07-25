@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -91,6 +92,7 @@ public class WxLoginService {
                 userInfo.setProvince("");
                 userInfo.setCountry("");
                 userData.setUserInfo(userInfo);
+                userData.setKvData(new HashMap<>());
                 userDataRepository.save(userData);
                 return sessionInfo;
             }
@@ -124,6 +126,7 @@ public class WxLoginService {
                 UserData userData = new UserData();
                 userData.setOpenId(openid);
                 userData.setUserInfo(userInfo);
+                userData.setKvData(new HashMap<>());
                 userDataRepository.save(userData);
                 return sessionInfo;
             }

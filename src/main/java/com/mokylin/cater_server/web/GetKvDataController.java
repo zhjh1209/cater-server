@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class GetKvDataController {
             result.setData("user not login");
         } else {
             User user = worldService.getUser(sessionUser.getOpenId());
-            String kvdata = null;
+            Map<String, Object> kvdata = null;
             if (user != null) {
                 kvdata = user.getUserData().getKvData();
             } else {
@@ -47,7 +48,7 @@ public class GetKvDataController {
                 }
             }
             result.setCode(0);
-            result.setData(JSON.parseArray(kvdata));
+            result.setData(kvdata);
             result.setMsg("success");
         }
         return result;

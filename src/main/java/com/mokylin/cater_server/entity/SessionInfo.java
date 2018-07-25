@@ -1,11 +1,14 @@
 package com.mokylin.cater_server.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Document
+@CompoundIndexes({@CompoundIndex(name = "skey_index", def = "{'skey':1}")})
 public class SessionInfo {
     @Id
     private String openId;
